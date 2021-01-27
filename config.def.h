@@ -11,7 +11,7 @@ static const unsigned int gappov    = 5;       /* vert outer gap between windows
 static const int smartgaps          = 0;        /* 1 means no outer gap when there is only one window */
 static const int showbar            = 1;        /* 0 means no bar */
 static const int topbar             = 1;        /* 0 means bottom bar */
-static const int viewontag         = 1;     /* Switch view on tag switch */
+static const int viewontag          = 1;     /* Switch view on tag switch */
 static const char *fonts[]          = { "FiraCode Nerd Font:size=10" };
 static const char dmenufont[]       = "FiraCode Nerd Font:size=10";
 static const char col_gray1[]       = "#222222";
@@ -19,8 +19,8 @@ static const char col_gray2[]       = "#444444";
 static const char col_gray3[]       = "#bbbbbb";
 static const char col_gray4[]       = "#ffffff";
 static const char col_cyan[]        = "#37474F";
-static const char col_border[]        = "#42A5F5";
-static const unsigned int baralpha = 0xd0;
+static const char col_border[]      = "#008000";
+static const unsigned int baralpha  = 0xd0;
 static const unsigned int borderalpha = OPAQUE;
 static const char *colors[][3]      = {
 	/*               fg         bg         border   */
@@ -35,8 +35,8 @@ static const unsigned int alphas[][3]      = {
 };
 
 /* tagging */
-static const char *tags[] = { "一", "二", "三", "四", "五", "六", "七", "八", "九" };
-//static const char *tags[] = { "\uf120", "\uf7ae", "\uf121", "\uf04b", "\ue62e", "\uf251", "\ue727", "\uf537", "\uf684" };
+//static const char *tags[] = { "一", "二", "三", "四", "五", "六", "七", "八", "九" };
+static const char *tags[] = { "\uf120", "\uf7ae", "\uf121", "\uf001", "\uf718", "\uf04b", "\uf251", "\uf537", "\uf684" };
 
 static const Rule rules[] = {
 	/* xprop(1):
@@ -73,22 +73,24 @@ static const Layout layouts[] = {
 
 /* commands */
 static char dmenumon[2] = "0"; /* component of dmenucmd, manipulated in spawn() */
-static const char *dmenucmd[] = { "rofi","-show","run", NULL };
-static const char *termcmd[]  = { "st", NULL };
-static const char *upvol[]   = { "/home/yuan/.dwm/manual/vol-up.sh",  NULL };
-static const char *downvol[] = { "/home/yuan/.dwm/manual/vol-down.sh",  NULL };
-static const char *mutevol[] = { "/home/yuan/.dwm/manual/vol-toggle.sh",  NULL };
-static const char *uplight[]   = { "/home/yuan/.dwm/manual/light-up.sh",  NULL };
-static const char *downlight[]   = { "/home/yuan/.dwm/manual/light-down.sh",  NULL };
+static const char *dmenucmd[]      = { "rofi","-show","run", NULL };
+static const char *termcmd[]       = { "st", NULL };
+static const char *sshcmd[]        = { "rofi","-show","ssh", NULL };
+static const char *upvol[]         = { "/home/yuan/.dwm/manual/vol-up.sh",  NULL };
+static const char *downvol[]       = { "/home/yuan/.dwm/manual/vol-down.sh",  NULL };
+static const char *mutevol[]       = { "/home/yuan/.dwm/manual/vol-toggle.sh",  NULL };
+static const char *uplight[]       = { "/home/yuan/.dwm/manual/light-up.sh",  NULL };
+static const char *downlight[]     = { "/home/yuan/.dwm/manual/light-down.sh",  NULL };
 static const char *screenshotcmd[] = { "/home/yuan/.dwm/manual/screenshot.sh", NULL };
-static const char *trayercmd[] = { "/home/yuan/.dwm/manual/trayer.sh", NULL };
+static const char *trayercmd[]     = { "/home/yuan/.dwm/manual/trayer.sh", NULL };
 
 static const char scratchpadname[] = "scratchpad";
 static const char *scratchpadcmd[] = { "st", "-t", scratchpadname, "-g", "120x34", NULL };
 
 static Key keys[] = {
 	/* modifier                     key        function        argument */
-	{ MODKEY,                       XK_p,      spawn,          {.v = dmenucmd } },       /* 启动器 */
+	{ MODKEY,                       XK_p,      spawn,          {.v = dmenucmd } },      /* 启动器 */
+	{ MODKEY|ControlMask,           XK_p,      spawn,          {.v = sshcmd } },        /* ssh */
 	{ MODKEY|ShiftMask,             XK_Return, spawn,          {.v = termcmd } },       /* 终端 */
 	{ MODKEY,                       XK_grave,  togglescratch,  {.v = scratchpadcmd } }, /* 打开浮动终端*/
 	{ MODKEY,                       XK_b,      togglebar,      {0} },					/* 隐藏/显示bar */
@@ -106,15 +108,15 @@ static Key keys[] = {
 	{ 0,            XF86XK_AudioLowerVolume,   spawn,          {.v = downvol } },       /* 音量和屏幕亮度 */
 	{ 0,            XF86XK_AudioMute,          spawn,          {.v = mutevol } },
 	{ 0,            XF86XK_AudioRaiseVolume,   spawn,          {.v = upvol   } },
-	{ MODKEY,		XF86XK_MonBrightnessDown,  spawn,          {.v = downlight  } },
-	{ MODKEY,		XF86XK_MonBrightnessUp,    spawn,          {.v = uplight    } },
+	{ 0,		    XF86XK_MonBrightnessDown,  spawn,          {.v = downlight  } },
+	{ 0,		    XF86XK_MonBrightnessUp,    spawn,          {.v = uplight    } },
 	{ MODKEY,                       XK_F1,     spawn,          {.v = mutevol } },
 	{ MODKEY,                       XK_F2,     spawn,          {.v = downvol } },
 	{ MODKEY,				        XK_F3,     spawn,          {.v = upvol   } },
 	{ MODKEY,				        XK_F11,    spawn,          {.v = downlight  } },
 	{ MODKEY,				        XK_F12,    spawn,          {.v = uplight    } },
 	{ MODKEY|ControlMask,           XK_a,      spawn,          {.v = screenshotcmd } }, /* 截图 */
-	{ ControlMask,           XK_t,      spawn,          {.v = trayercmd } },     /* 系统托盘 */
+	{ ControlMask,                  XK_t,      spawn,          {.v = trayercmd } },     /* 系统托盘 */
 
 	/*
 	{ MODKEY|Mod4Mask,              XK_h,      incrgaps,       {.i = +1 } },
