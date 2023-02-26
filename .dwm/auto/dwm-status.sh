@@ -140,6 +140,7 @@ print_date(){
 }
 
 show_record(){
+    # https://github.com/kaihendry/recordmydesktop2.0/
 	test -f /tmp/r2d2 || return
 	rp=$(cat /tmp/r2d2 | awk '{print $2}')
 	size=$(du -h $rp | awk '{print $1}')

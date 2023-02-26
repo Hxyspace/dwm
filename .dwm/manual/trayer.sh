@@ -2,5 +2,5 @@
 
 killall trayer
 if [ $? != 0 ]; then
-	trayer --edge top --widthtype request --height 18 --transparent 30 --tint 5555555 &
+    trayer --edge right --widthtype request --SetDockType false --transparent true --distancefrom left --distance 7 --tint 0x0000ff00 &
 fi
