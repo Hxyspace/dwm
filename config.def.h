@@ -83,6 +83,7 @@ static const char *uplight[]       = { "/home/yuan/.dwm/manual/light-up.sh",  NU
 static const char *downlight[]     = { "/home/yuan/.dwm/manual/light-down.sh",  NULL };
 static const char *screenshotcmd[] = { "/home/yuan/.dwm/manual/screenshot.sh", NULL };
 static const char *trayercmd[]     = { "/home/yuan/.dwm/manual/trayer.sh", NULL };
+static const char *offdisplay[]    = { "/home/yuan/.dwm/manual/display-off.sh", NULL };
 
 static const char scratchpadname[] = "scratchpad";
 static const char *scratchpadcmd[] = { "st", "-t", scratchpadname, "-g", "120x34", NULL };
@@ -117,6 +118,7 @@ static Key keys[] = {
 	{ MODKEY,				        XK_F12,    spawn,          {.v = uplight    } },
 	{ MODKEY|ControlMask,           XK_a,      spawn,          {.v = screenshotcmd } }, /* 截图 */
 	{ ControlMask,                  XK_t,      spawn,          {.v = trayercmd } },     /* 系统托盘 */
+	{ MODKEY|ControlMask,           XK_Delete, spawn,          {.v = offdisplay } },    /* 息屏 */
 
 	/*
 	{ MODKEY|Mod4Mask,              XK_h,      incrgaps,       {.i = +1 } },

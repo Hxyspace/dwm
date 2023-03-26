@@ -118,7 +118,7 @@ get_battery_charging_status() {
 
 
 print_bat(){
-	#hash acpi || return 0
+	acpi >/dev/null 2>&1 || echo "" && return
 	#onl="$(grep "on-line" <(acpi -V))"
 	#charge="$(awk '{ sum += $1 } END { print sum }' /sys/class/power_supply/BAT*/capacity)%"
 	#if test -z "$onl"

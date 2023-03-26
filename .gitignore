@@ -2,3 +2,6 @@ dwm
 *.o
 *.orig
 *.rej
+compile_commands.json
+.cache/
+config.h
